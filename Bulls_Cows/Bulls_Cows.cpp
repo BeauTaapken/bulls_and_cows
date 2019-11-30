@@ -12,7 +12,6 @@ using int32 = int;
 void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
-void PrintAnswer(FText Guess);
 bool AskToPlayAgain();
 void PrintGameSummary();
 
@@ -32,7 +31,17 @@ int main()
 //Introduce the game
 void PrintIntro()
 {
-	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n" << std::endl;
+	std::cout << R"(                                    ,           ,)" << std::endl;
+	std::cout << R"(   ,/         \,                   /             \)" << std::endl;
+	std::cout << R"(  ((__,-"""-,__))                 ((__-^^-,-^^-__)))" << std::endl;
+	std::cout << "   `--)~   ~(--`                   `-_---' `---_-'" << std::endl;
+	std::cout << "  .-'(       )`-,                   <__|o` 'o|__>" << std::endl;
+	std::cout << R"(  `~~`d\   /b`~~`                      \  `  /)" << std::endl;
+	std::cout << "      |     |                           ): :(" << std::endl;
+	std::cout << "      (6___6)                           :o_o:" << std::endl;
+	std::cout << R"(       `---`                            " - ")" << std::endl;
+	std::cout << "        BULL                             COW" << std::endl;
 	std::cout << "Can you guess the " << BCGame.getHiddenWordLength() << " letter isogram I'm thinking off?\n";
 	std::cout << std::endl;
 }
@@ -65,37 +74,31 @@ FText GetValidGuess()
 	do
 	{
 		//Get a guess from the player
-		std::cout << "Try " << BCGame.GetCurrentTry() << std::endl << "Give me a guess: ";
+		std::cout << "Try " << BCGame.GetCurrentTry() << " of " << BCGame.GetMaxTries();
+		std::cout << std::endl << "Give me a guess: ";
 		std::getline(std::cin, guess);
 
 		status = BCGame.CheckGuessValidity(guess);
 		switch (status)
 		{
 		case EGuessStatus::Incorrect_Length:
-			std::cout << "Please enter a " << BCGame.getHiddenWordLength() << " letter word.\n";
+			std::cout << "Please enter a " << BCGame.getHiddenWordLength() << " letter word.\n\n";
 			break;
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter an isogram(word with no double usage of letters)\n";
+			std::cout << "Please enter an isogram(word with no double usage of letters)\n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Please only give answers in lower case\n";
+			std::cout << "Please only give answers in lower case\n\n";
 			break;
 		case EGuessStatus::OK:
 			break;
 		default:
-			std::cout << "Unhandled status in GetValidGuess function\n";
+			std::cout << "Unhandled status in GetValidGuess function\n\n";
 			break;
 		}
-		std::cout << std::endl;
 	}
 	while (status != EGuessStatus::OK);
 	return guess;
-}
-
-void PrintAnswer(FText Guess)
-{
-	//Print the guess back
-	std::cout << "you're answer was: " << Guess << std::endl;
 }
 
 bool AskToPlayAgain()

@@ -40,4 +40,5 @@ private:
 	bool bWonGame;
 	
 	bool isIsogram(FString) const;
+	bool isLower(FString) const;
 };

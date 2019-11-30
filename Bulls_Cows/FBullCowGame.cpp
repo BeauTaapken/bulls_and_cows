@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "FBullCowGame.h"
 #include <map>
+#include <cctype>
 #define TMap std::map
 
 FBullCowGame::FBullCowGame() { Reset(); }
@@ -32,8 +33,7 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString guess) const
 		return EGuessStatus::Not_Isogram;
 	}
 	//If guess isn't all lowercase
-	//TODO write function
-	else if(false)
+	else if(!isLower(guess))
 	{
 		return EGuessStatus::Not_Lowercase;
 	}
@@ -109,5 +109,19 @@ bool FBullCowGame::isIsogram(FString word) const
 		}
 		letterSeen[letter] = true;
 	}
+	return true;
+}
+
+bool FBullCowGame::isLower(FString word) const
+{
+	//For all letter of the word
+	for(auto letter : word)
+	{
+		if(letter != tolower(letter))
+		{
+			return false;
+		}
+	}
+	
 	return true;
 }
