@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 FBullCowGame::FBullCowGame() { Reset(); }
 
@@ -25,11 +27,12 @@ void FBullCowGame::Reset()
 EGuessStatus FBullCowGame::CheckGuessValidity(FString guess) const
 {
 	//If guess isn't an isogram, return error
-	if(false)
+	if(!isIsogram(guess))
 	{
 		return EGuessStatus::Not_Isogram;
 	}
 	//If guess isn't all lowercase
+	//TODO write function
 	else if(false)
 	{
 		return EGuessStatus::Not_Lowercase;
@@ -85,4 +88,26 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString guess)
 	}
 	
 	return bullCowCount;
+}
+
+bool FBullCowGame::isIsogram(FString word) const
+{
+	//Treat 0 and 1 letter words as isograms
+	if(word.length() <= 1) { return true; }
+
+	//Setup map
+	TMap<char, bool> letterSeen;
+
+	//For all letters of the word
+	for(auto letter : word)
+	{
+		letter = tolower(letter);
+		//check in map if the letter has already been seen
+		if(letterSeen[letter])
+		{
+			return false;
+		}
+		letterSeen[letter] = true;
+	}
+	return true;
 }
