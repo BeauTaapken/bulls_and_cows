@@ -1,14 +1,17 @@
-// Bulls_Cows.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+/* Bulls_Cows.cpp : This file contains the 'main' function. Program execution begins and ends there.
+*/
 #include "pch.h"
+#pragma once
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+//To make syntax Unreal friendly
 using FText = std::string;
 using int32 = int;
 
+//Function prototypes as outside a class
 void PrintIntro();
 void PlayGame();
 FText GetValidGuess();
@@ -46,12 +49,12 @@ void PrintIntro()
 	std::cout << std::endl;
 }
 
+//Plays a single game to completion
 void PlayGame()
 {
 	BCGame.Reset();
 
-	//Loop asking for guesses while the game is NOT won
-	//And there are still tries remaining
+	//Loop asking for guesses while the game is NOT won and there are still tries remaining
 	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= BCGame.GetMaxTries())
 	{
 		FText guess = GetValidGuess();
@@ -73,7 +76,6 @@ FText GetValidGuess()
 	FText guess = "";
 	do
 	{
-		//Get a guess from the player
 		std::cout << "Try " << BCGame.GetCurrentTry() << " of " << BCGame.GetMaxTries();
 		std::cout << std::endl << "Give me a guess: ";
 		std::getline(std::cin, guess);

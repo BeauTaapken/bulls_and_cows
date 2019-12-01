@@ -1,6 +1,11 @@
+/* The game logic (no view code or direct user interaction)
+	The game is a simple guess the word game based on Mastermind
+*/
+
 #pragma once
 #include <string>
 
+//To make the syntax unreal value
 using FString = std::string;
 using int32 = int;
 
@@ -29,13 +34,12 @@ public:
 	bool IsGameWon() const;
 	EGuessStatus CheckGuessValidity(FString) const;
 
-	void Reset(); //TODO make a more rich return value.
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
 private:
 	//See constructor for initialisation
 	int32 myCurrentTry;
-	int32 myMaxTries;
 	FString myHiddenWord;
 	bool bWonGame;
 	
